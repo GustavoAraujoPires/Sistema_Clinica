@@ -26,6 +26,20 @@ public class pacienteController {
         return pacienteService.savarPaciente(paciente);
     }
 
+    @PutMapping("/{id}")
+    public Paciente autualizarPaciente(@PathVariable Long id, @RequestBody Paciente paciente){
+        Paciente verificarPaciente = pacienteService.burcarPacienteId(id);
+        if(verificarPaciente == null){
+            return null;
+        }
+
+        verificarPaciente.setEmail(paciente.getEmail());
+        verificarPaciente.setName(paciente.getName());
+        verificarPaciente.setDataNacimento(paciente.getDataNacimento());
+
+        return pacienteService.savarPaciente(verificarPaciente);
+    }
+
     @GetMapping("/{id}")
     public Paciente buscarPacienteporId(@PathVariable Long id){
         return pacienteService.burcarPacienteId(id);
